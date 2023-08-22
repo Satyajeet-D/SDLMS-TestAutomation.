@@ -1,83 +1,62 @@
-# Testing Approach for SDLMS Login and Password Reset
+# Assignment 1
 
-## Objective
+## Module Name: SDLMS Login Page
 
-The objective of this testing approach is to verify the login and user authentication process of the SDLMS, including successful login, unsuccessful login attempts, validation of error messages, and the redirection to the password reset page when clicking "Forgot Password."
+### Testing Approach
 
-## Test Environment Setup
+**Objective:** The objective of this testing approach is to verify the login and user authentication process of the SDLMS, including successful login, unsuccessful login attempts, validation of error messages, and the redirection to the password reset page when clicking "Forgot Password."
 
-1. Set up a local Node.js environment with a recommended, newer Node.js version.
+**Test Environment and Tools used:**
 
-2. Install TestCafe globally using the Node Package Manager (NPM):
+1. Node Js: For JavaScript
+2. TestCafe: To automate the test cases written for the login page of SDLMS.
 
->> npm install -g testcafe
+### Testing Performed
 
+1. Functional Testing:
+   - Error handling Coverage
+2. Non-Functional Testing:
+   - Cross-Browser Testing (Browsers tested: Chrome, Firefox, Edge)
 
-## Test Cases
+### Test Scenarios & Cases
 
-### Test Case 1: Test Successful Login with Valid Credentials
+#### Test Scenario 1: Test successful Login with valid Credentials
 
-- **Scenario**: Verify that a user can log in successfully with valid credentials.
-- **Steps**:
-1. Navigate to the SDLMS login page.
-2. Enter valid username and password.
-3. Click the login button.
-4. Verify that the user is redirected to the dashboard screen.
-- **Assertions**:
-- The dashboard screen should be displayed.
+**Test Cases:**
 
-### Test Case 2: Test Unsuccessful Login Attempts with Invalid Credentials
+1. Verify that the user is able to enter the Username in the username field.
+2. Verify that the user is able to enter the email in the email field.
+3. Verify that the user is able to enter the Password in the password field.
+4. Verify that the User is able to click the Login button.
+5. Verify that the user lands on the dashboard after successful login.
 
-- **Scenario**: Verify that a user cannot log in with invalid credentials.
-- **Steps**:
-1. Navigate to the SDLMS login page.
-2. Enter invalid username and password.
-3. Click the login button.
-- **Assertions**:
-- An error message should be displayed indicating unsuccessful login.
+#### Test Scenario 2: Test Unsuccessful login attempts with invalid credentials
 
-### Test Case 3: Validate Error Messages for Invalid Login Attempts
+**Test Cases:**
 
-- **Scenario**: Verify that appropriate error messages are displayed for invalid login attempts.
-- **Steps**:
-1. Navigate to the SDLMS login page.
-2. Leave both username and password fields empty.
-3. Click the login button.
-- **Assertions**:
-- Error messages for both username and password should be displayed.
+1. Verify that an error message is displayed when the user is trying to login with invalid username/email & password.
+2. Verify the user is not able to login with an empty username/email field.
+3. Verify that the user is not able to login with an empty password field.
+4. Verify that an error message is displayed when the user is trying to login with an empty username/email field.
+5. Verify that an error message is displayed when the user tries to login with an empty password field.
 
-### Test Case 4: Verify Redirection to Password Reset Page
+### Challenges Faced During Testing
 
-- **Scenario**: Verify that the user is redirected to the password reset page when clicking "Forgot Password."
-- **Steps**:
-1. Navigate to the SDLMS login page.
-2. Click the "Forgot Password" link.
-- **Assertions**:
-- The user should be on the password reset page.
+1. Element was not visible during script execution and throws an error.
 
-## Cross-Browser Testing
+   **Solution:** I used implicit wait to wait for the element to be visible.
 
-**Browser versions used**:
-1. Chrome (115.0)
-2. Firefox (115.0)
+2. Selecting the correct HTML element using TestCafe selectors.
 
-1. Configure the TestCafe tests to run on at least two different browsers (e.g., Chrome and Firefox).
-2. Run the test cases and validate if processes work consistently across the chosen browsers.
+   **Solution:** I was using an XPath selector to identify the elements, then later I understood that I should use a CSS selector to fetch the element.
 
-## Challenges Faced During Testing and Solutions
+3. While cross-browser testing, I was facing problems with browser drivers and configuring the `test.login.js`.
 
-**Challenge 1**: Identifying and selecting the correct HTML elements using TestCafe selectors.
+   **Solution:** I installed the browser providers, and then the browser problem was solved. Then I used the direct path of the JS file present in the directory, and the configuration problem was also solved.
 
-- **Solution**: Inspect the HTML structure of the SDLMS login page and use appropriate selectors such as `Selector('input[name="username"]')` to target specific elements.
+### Test Summary Report
 
-**Challenge 2**: Verifying page title when navigating to the password reset page.
-
-- **Solution**: Use `t.eval(() => document.title)` to extract the current page title and compare it to the expected title.
-
-**Challenge 3**: Ensuring consistent test execution across different browsers.
-
-- **Solution**: Configure cross-browser testing with TestCafe by specifying multiple browsers in the test command (e.g., `testcafe chrome,firefox login.test.js`). Verify that tests run successfully on each browser.
-
-## Conclusion
-
-The testing approach outlined above covers the SDLMS login and password reset functionality comprehensively. By documenting test cases, challenges, and solutions, I ensure a clear and organized approach to testing the SDLMS. This approach allows for effective verification of user authentication and redirection processes.
+| Test ID                                                      | Test Cases                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Expected Result                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Actual Result                                                                                                                                                                                                                                                                                                                                                                                                        | Status                                                                                                           |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 1.Test successful Login with valid Credentials.              | 1\. Verify that user is able to enter Username/email in username field.<br><br><br>2\. Verify that user is able to enter Password in password field.<br><br>3\. Verify that  User is able to click the Login button.<br><br>4\. Verify that user is landing on dashboard after successful login.                                                                                                                                                                                                          | User should be able to enter the username/email in username field.<br><br><br>User should be able to enter the password in password field.<br><br>User should be able to click the login button.<br><br>User should land on the dashboard page after successful login.                                                                                                                                                                                                | User is able to enter the username/email in username field.<br><br>User is able to enter the password in password field.<br><br>User is be able to click the login button.<br><br>User is landing on the dashboard page after successful login.                                                                                                                                                                      | Pass<br><br><br><br><br>Pass<br><br><br><br>Pass<br><br><br>Pass                                                 |
+| 2.Test Unsuccessful login attempts with invalid credentials. | 1\. Verify that error message is displayed when user is trying to login with invalid username/email & password.<br> <br>2\. Verify user is not able to login with empty username/ email field.<br><br><br>3\. Verify that  user is not able to login with empty password field.<br><br>4\. Verify that error message is displayed when user is trying to login with empty username/email field.<br><br>5\. Verify that error message is displayed when user tries to login with empty password field.<br> | Error message should be displayed when user is trying to login with invalid username/email & password.<br><br><br>User should be not able to login with empty username/email field.<br><br><br>User should be not able to login with empty password field.<br><br><br>Error message should be displayed when user is trying to login with empty username/email field.<br><br>Error message should be displayed when user is tries to login with empty password field. | Error message is displayed when user is trying to login with invalid username/email & password.<br><br>User is not able to login with empty username/email field.<br><br>User is not able to login with empty password field.<br><br>Error message is displayed when user is trying to login with empty username/email field.<br><br>Error message is displayed when user  tries to login with empty password field. | Pass<br><br><br><br><br><br><br>Pass<br><br><br><br><br><br>Pass<br><br><br><br><br>Pass<br><br><br><br><br>Pass |
